@@ -2,48 +2,29 @@ package simpleTesting
 
 import "testing"
 
-func TestGreeting(t *testing.T) {
-	got := Greeting("Marko", "")
-	want := "Hello Marko"
 
-	if got != want {
+type GreetingTest struct {
+	name string
+	locale string
+	want string
+}
+
+var greetingTests = []GreetingTest {
+	{ "George", "en-US", "Hello George" },
+	{ "Adam", "fr-FR", "Bonjour Adam" },
+	{ "Paolo", "it-IT", "Ciao Paolo" },
+	{ "Pekka", "fi-FI", "Terve Pekka" },
+}
+
+func TestGreetings(t *testing.T) {
+
+	for _, test := range greetingTests{
+		got := Greeting(test.name, test.locale)
+		want := test.want
+
+		if got != want{
 		t.Fatalf("Expected %q, got %q", want, got)
 	}
-}
-
-func TestUSGreeting(t *testing.T) {
-	got := Greeting("Marko", "en-US")
-	want := "Hello Marko"
-
-	if got != want {
-		t.Fatalf("US Expected %q, got %q", want, got)
 	}
 }
 
-func TestFRGreeting(t *testing.T) {
-	got := Greeting("Marko", "fr-FR")
-	want := "Bonjour Marko"
-
-	if got != want {
-		t.Fatalf("FR Expected %q, got %q", want, got)
-	}
-}
-
-func TestITGreeting(t *testing.T) {
-	got := Greeting("Marko", "it-IT")
-	want := "Ciao Marko"
-
-	if got != want {
-		t.Fatalf("IT Expected %q, got %q", want, got)
-	}
-}
-
-
-func TestFrenchGreeting(t *testing.T) {
-	got := translate("fr-FR")
-	want := "Bonjour "
-
-	if got != want {
-		t.Fatalf("Expected %q, got %q", want, got)
-	}
-}
